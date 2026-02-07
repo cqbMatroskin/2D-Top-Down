@@ -1,6 +1,7 @@
 extends Node
 class_name ExpManager
 
+signal level_up(current_level: int)
 signal exp_update(current_exp: float, target_exp: float)
 
 var current_exp: float = 0
@@ -20,3 +21,4 @@ func on_exp_bottle_collected(experience: int) -> void:
 		current_exp = 0
 		target_exp += target_after_lvlup
 		exp_update.emit(current_exp, target_exp)
+		level_up.emit(current_lvl)
