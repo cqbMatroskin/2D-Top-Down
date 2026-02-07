@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b6ourcjkpnbab" path="res://scene/manager/arena_time_manager.tscn" id="2_ao10f"]
 [ext_resource type="PackedScene" uid="uid://cfeihb5vfvam3" path="res://scene/manager/experience_manager.tscn" id="3_dcgxc"]
 [ext_resource type="PackedScene" uid="uid://bcunspejdbv4o" path="res://scene/manager/spawner/enemy_spawner.tscn" id="3_plauu"]
+[ext_resource type="PackedScene" uid="uid://66wn1xmlpt1k" path="res://scene/ui/exp_bar.tscn" id="5_n6afj"]
 
 [node name="Level" type="Node" unique_id=1367463640 groups=["level"]]
 
@@ -17,6 +18,9 @@ arena_time_manager = NodePath("../ArenaTimeManager")
 [node name="ExperienceManager" parent="." unique_id=1106957841 instance=ExtResource("3_dcgxc")]
 
 [node name="EnemySpawner" parent="." unique_id=700179335 instance=ExtResource("3_plauu")]
+
+[node name="ExpBar" parent="." unique_id=280331448 node_paths=PackedStringArray("exp_manager") instance=ExtResource("5_n6afj")]
+exp_manager = NodePath("../ExperienceManager")
 
 [node name="Layer0" type="TileMapLayer" parent="." unique_id=776027827]
 use_parent_material = true
