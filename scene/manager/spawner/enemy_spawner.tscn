@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bcunspejdbv4o"]
+
+[ext_resource type="Script" uid="uid://cs23wwu656cao" path="res://scene/manager/spawner/enemy_spawner.gd" id="1_ix42i"]
+[ext_resource type="PackedScene" uid="uid://ckt3a2jsyg3iu" path="res://scene/game_objects/pumpkin_dude/pumpkin_dude.tscn" id="2_naxck"]
+
+[node name="EnemySpawner" type="Node" unique_id=700179335]
+script = ExtResource("1_ix42i")
+pumpkin_dude_scene = ExtResource("2_naxck")
+
+[node name="Timer" type="Timer" parent="." unique_id=1260586690]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

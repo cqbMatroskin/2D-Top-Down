@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://ckt3a2jsyg3iu"]
+
+[ext_resource type="Script" uid="uid://cj8wsthyo53bt" path="res://scene/game_objects/pumpkin_dude/pumpkin_dude.gd" id="1_8o4r8"]
+[ext_resource type="Texture2D" uid="uid://c2yp7qulti0cg" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_idle_anim_f0.png" id="1_mv2tx"]
+[ext_resource type="Texture2D" uid="uid://cr0q8u1bqmhem" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_idle_anim_f1.png" id="2_8o4r8"]
+[ext_resource type="PackedScene" uid="uid://dgdjpfevf6i1" path="res://scene/components/health_component.tscn" id="2_wop1k"]
+[ext_resource type="Texture2D" uid="uid://c2uodlixvljm0" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_idle_anim_f2.png" id="3_3h6te"]
+[ext_resource type="PackedScene" uid="uid://bldwq2kh4je15" path="res://scene/components/exp_bottle_drop_component.tscn" id="3_tfhlc"]
+[ext_resource type="Texture2D" uid="uid://lxt4p8rpkbsp" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_idle_anim_f3.png" id="4_ff4i2"]
+[ext_resource type="PackedScene" uid="uid://b6gtnnm6de5or" path="res://scene/components/hurt_box_component.tscn" id="4_jmnkd"]
+[ext_resource type="Texture2D" uid="uid://c4kvka8resvn5" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f0.png" id="5_wefsl"]
+[ext_resource type="Texture2D" uid="uid://r3bejeqh27x7" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f1.png" id="6_ivd43"]
+[ext_resource type="Texture2D" uid="uid://cds7u75synple" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f2.png" id="7_kqigh"]
+[ext_resource type="Texture2D" uid="uid://c2cjr0phvvpiy" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f3.png" id="8_ua6y8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jmnkd"]
+radius = 13.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cqvji"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mv2tx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8o4r8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3h6te")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ff4i2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_wefsl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ivd43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kqigh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ua6y8")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3v3ac"]
+radius = 8.0
+
+[node name="PumpkinDude" type="CharacterBody2D" unique_id=2139793373 groups=["enemy"]]
+collision_layer = 0
+script = ExtResource("1_8o4r8")
+
+[node name="HealthComponent" parent="." unique_id=1005102060 instance=ExtResource("2_wop1k")]
+max_health = 5
+
+[node name="ExpBottleDropComponent" parent="." unique_id=665201410 node_paths=PackedStringArray("health_component") instance=ExtResource("3_tfhlc")]
+health_component = NodePath("../HealthComponent")
+
+[node name="HurtBoxComponent" parent="." unique_id=202865895 node_paths=PackedStringArray("health_component") instance=ExtResource("4_jmnkd")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent" unique_id=1823393692]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_jmnkd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=468608925]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_cqvji")
+animation = &"run"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=604906771]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_3v3ac")

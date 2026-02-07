@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b6ourcjkpnbab"]
+
+[ext_resource type="Script" uid="uid://5faxovh4q71t" path="res://scene/manager/arena_time_manager.gd" id="1_374so"]
+
+[node name="ArenaTimeManager" type="Node" unique_id=1922484083]
+script = ExtResource("1_374so")
+
+[node name="Timer" type="Timer" parent="." unique_id=36368047]
+wait_time = 600.0
+one_shot = true
+autostart = true
