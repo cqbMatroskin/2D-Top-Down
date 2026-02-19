@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_qkkha")
 id = "sword_rate"
-name = "Скорость меча"
+name = "Быстрый меч"
 description = "Увеличивает скорость меча на 10%"

@@ -5,7 +5,7 @@ signal level_up(current_level: int)
 signal exp_update(current_exp: float, target_exp: float)
 
 var current_exp: float = 0
-var target_exp: float = 5
+var target_exp: float = 1
 var target_after_lvlup:float = 5
 var current_lvl: int = 1
 

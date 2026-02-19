@@ -1,7 +1,8 @@
 extends Node
 
 @export var experience_manager: ExpManager
-@export var upgrade_poll: Array[AbilityUpgrade]
+@export var upgrade_pool: Array[AbilityUpgrade]
+@export var upgrade_screen_scene: PackedScene
 
 var current_upgrades: Dictionary = {}
 
@@ -10,15 +11,20 @@ func _ready() -> void:
 
 func on_lvl_up(current_level: int) -> void:
 	# Случайный апгрейд
-	var choosen_upgrade: AbilityUpgrade = upgrade_poll.pick_random() as AbilityUpgrade
+	var choosen_upgrade: AbilityUpgrade = upgrade_pool.pick_random() as AbilityUpgrade
 	if choosen_upgrade == null:
 		return
-	var has_upgrade: bool = current_upgrades.has(choosen_upgrade.id)
+	
+	var upgrade_screen_instance = upgrade_screen_scene.instantiate() as UpgradeScreen
+	add_child(upgrade_screen_instance)
+	upgrade_screen_instance.set_ability_upgrades([choosen_upgrade] as Array[AbilityUpgrade])
+	
+func apply_upgrade(upgrade: AbilityUpgrade) -> void:
+	var has_upgrade: bool = current_upgrades.has(upgrade.id)
 	if !has_upgrade:
-		current_upgrades[choosen_upgrade.id] = {
-			"upgrade": choosen_upgrade,
+		current_upgrades[upgrade.id] = {
+			"upgrade": upgrade,
 			"quantity": 1
 		}
 	else:
-		current_upgrades[choosen_upgrade.id]["quantity"] += 1
-	print(current_upgrades)
+		current_upgrades[upgrade.id]["quantity"] += 1
