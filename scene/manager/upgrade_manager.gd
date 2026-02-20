@@ -29,7 +29,7 @@ func apply_upgrade(upgrade: AbilityUpgrade) -> void:
 		}
 	else:
 		current_upgrades[upgrade.id]["quantity"] += 1
-	print(current_upgrades)
+	Global.ability_upgrade_added.emit(upgrade, current_upgrades)
 
 func on_upgrade_selected(upgrade: AbilityUpgrade) -> void:
 	apply_upgrade(upgrade)

@@ -1,9 +1,16 @@
 extends Node
 
+@export var attack_ability: PackedScene
+
+@onready var timer: Timer = $Timer
+
 const ATTACK_RANGE: int = 100
 const DAMAGE: int = 10
+var default_attack_speed: int
 
-@export var attack_ability: PackedScene
+func _ready() -> void:
+	Global.ability_upgrade_added.connect(on_upgrade_added)
+	default_attack_speed = timer.wait_time
 
 func _on_timer_timeout() -> void:
 	var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
@@ -37,3 +44,15 @@ func _on_timer_timeout() -> void:
 	attack_instance.global_position = (enemy_pos + player_pos) / 2
 	# Повернуть меч в сторону врага
 	attack_instance.look_at(enemy_pos)
+
+func on_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
+	if upgrade.id != "sword_rate":
+		return
+	
+	# Увеличиваем скорость удара на 10%
+	var upgrade_percent = current_upgrades["sword_rate"]["quantity"] * .1
+	timer.wait_time = max(0.1, default_attack_speed * (1 - upgrade_percent))
+	# Таймер не перезапустится сам, его нужно запускать вручную, чтобы изменения вступили в силу
+	timer.start()
+	print(timer.wait_time)
+	
