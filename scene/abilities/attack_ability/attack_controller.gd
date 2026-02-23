@@ -6,7 +6,7 @@ extends Node
 
 const ATTACK_RANGE: int = 100
 const DAMAGE: int = 10
-var default_attack_speed: int
+var default_attack_speed: float
 
 func _ready() -> void:
 	Global.ability_upgrade_added.connect(on_upgrade_added)
@@ -38,7 +38,8 @@ func _on_timer_timeout() -> void:
 	# Ближайший враг
 	var enemy_pos: Vector2 = enemies[0].global_position
 	var attack_instance: Node2D = attack_ability.instantiate() as AttackAbility
-	level.add_child(attack_instance)
+	var front_layer: Node2D = get_tree().get_first_node_in_group("front_layer") as Node2D
+	front_layer.add_child(attack_instance)
 	
 	attack_instance.hit_box_component.damage = DAMAGE
 	attack_instance.global_position = (enemy_pos + player_pos) / 2
@@ -50,7 +51,7 @@ func on_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> 
 		return
 	
 	# Увеличиваем скорость удара на 10%
-	var upgrade_percent = current_upgrades["sword_rate"]["quantity"] * .1
+	var upgrade_percent: float = current_upgrades["sword_rate"]["quantity"] * .1
 	timer.wait_time = max(0.1, default_attack_speed * (1 - upgrade_percent))
 	# Таймер не перезапустится сам, его нужно запускать вручную, чтобы изменения вступили в силу
 	timer.start()

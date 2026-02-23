@@ -15,5 +15,6 @@ func on_died() -> void:
 		return
 	var spawn_pos: Vector2 = (owner as Node2D).global_position
 	var exp_bottle_instance: Node = exp_bottle_scene.instantiate() as Node2D
-	owner.get_parent().add_child(exp_bottle_instance)
+	var back_layer: Node2D = get_tree().get_first_node_in_group("back_layer") as Node2D
+	back_layer.add_child(exp_bottle_instance)
 	exp_bottle_instance.global_position = spawn_pos

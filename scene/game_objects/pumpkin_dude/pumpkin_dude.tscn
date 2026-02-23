@@ -57,7 +57,8 @@ animations = [{
 radius = 8.0
 
 [node name="PumpkinDude" type="CharacterBody2D" unique_id=2139793373 groups=["enemy"]]
-collision_layer = 0
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_8o4r8")
 
 [node name="HealthComponent" parent="." unique_id=1005102060 instance=ExtResource("2_wop1k")]

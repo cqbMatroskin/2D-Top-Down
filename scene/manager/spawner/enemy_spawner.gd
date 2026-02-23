@@ -13,5 +13,6 @@ func _on_timer_timeout() -> void:
 	var spawn_position: Vector2 = player.global_position + (random_direction * random_distance)
 	
 	var enemy: Node2D = pumpkin_dude_scene.instantiate() as Node2D
-	get_parent().add_child(enemy)
+	var back_layer: Node2D = get_tree().get_first_node_in_group("back_layer") as Node2D
+	back_layer.add_child(enemy)
 	enemy.global_position = spawn_position
