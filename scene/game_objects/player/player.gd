@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var grace_period: Timer = $GracePeriod

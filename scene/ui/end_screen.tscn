@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://ovrs245i1xpy"]
+
+[ext_resource type="Script" uid="uid://bmo7x0xud8mp4" path="res://scene/ui/end_screen.gd" id="1_tpqo7"]
+
+[node name="EndScreen" type="CanvasLayer" unique_id=1180655594]
+process_mode = 3
+script = ExtResource("1_tpqo7")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1640253767]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1082993516]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=147654753]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer" unique_id=283638695]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2029033305]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Игра окончена"
+horizontal_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1129350604]
+layout_mode = 2
+text = "Перезапустить"
+
+[node name="QuitBtn" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1322639849]
+layout_mode = 2
+text = "Выход"
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RestartBtn" to="." method="_on_restart_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
