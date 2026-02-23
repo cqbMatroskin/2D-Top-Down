@@ -56,6 +56,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_3v3ac"]
 radius = 8.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jmnkd"]
+radius = 7.0
+height = 16.0
+
 [node name="PumpkinDude" type="CharacterBody2D" unique_id=2139793373 groups=["enemy"]]
 collision_layer = 4
 collision_mask = 5
@@ -83,3 +87,11 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=604906771]
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_3v3ac")
+
+[node name="EnemyHitBox" type="Area2D" parent="." unique_id=71506589]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox" unique_id=1534137211]
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_jmnkd")

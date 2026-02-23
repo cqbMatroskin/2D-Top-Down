@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bcunspejdbv4o" path="res://scene/manager/spawner/enemy_spawner.tscn" id="3_plauu"]
 [ext_resource type="PackedScene" uid="uid://dp2b8a1lp64fe" path="res://scene/manager/upgrade_manager.tscn" id="4_xfrsa"]
 [ext_resource type="PackedScene" uid="uid://66wn1xmlpt1k" path="res://scene/ui/exp_bar.tscn" id="5_n6afj"]
+[ext_resource type="Script" uid="uid://ci44ocyi37sfp" path="res://scene/level/camera_2d.gd" id="9_yrl12"]
 
 [node name="Level" type="Node" unique_id=1367463640 groups=["level"]]
 
@@ -36,6 +37,11 @@ tile_set = ExtResource("1_485ph")
 y_sort_enabled = true
 
 [node name="Player" parent="Back" unique_id=767070714 instance=ExtResource("2_aiioc")]
+unique_name_in_owner = true
 position = Vector2(176, 110)
 
 [node name="Front" type="Node2D" parent="." unique_id=1321167093 groups=["front_layer"]]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=696487214]
+position_smoothing_enabled = true
+script = ExtResource("9_yrl12")

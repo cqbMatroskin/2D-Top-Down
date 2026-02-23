@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dewjye7reccep" path="res://scene/game_objects/player/player.gd" id="1_41w3l"]
 [ext_resource type="Texture2D" uid="uid://c71guvpfpo8g2" path="res://scene/game_objects/player/Art/knight_m_idle_anim_f0.png" id="2_41w3l"]
 [ext_resource type="PackedScene" uid="uid://c6y5icbmysora" path="res://scene/abilities/attack_ability/attack_controller.tscn" id="2_co0lx"]
+[ext_resource type="PackedScene" uid="uid://dgdjpfevf6i1" path="res://scene/components/health_component.tscn" id="3_bjes5"]
 [ext_resource type="Texture2D" uid="uid://ducgim7vevaoa" path="res://scene/game_objects/player/Art/knight_m_idle_anim_f1.png" id="3_co0lx"]
 [ext_resource type="Texture2D" uid="uid://cb78c6a3dly21" path="res://scene/game_objects/player/Art/knight_m_idle_anim_f2.png" id="4_kidpo"]
 [ext_resource type="Texture2D" uid="uid://b2k4efjob3lnf" path="res://scene/game_objects/player/Art/knight_m_idle_anim_f3.png" id="5_rvfjl"]
@@ -11,6 +12,17 @@
 [ext_resource type="Texture2D" uid="uid://ce2ihdpe7e1dn" path="res://scene/game_objects/player/Art/knight_m_run_anim_f1.png" id="7_sqcmh"]
 [ext_resource type="Texture2D" uid="uid://dnl374owqrw8l" path="res://scene/game_objects/player/Art/knight_m_run_anim_f2.png" id="8_d52sb"]
 [ext_resource type="Texture2D" uid="uid://n35iw3gsgl3h" path="res://scene/game_objects/player/Art/knight_m_run_anim_f3.png" id="9_38fwo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjes5"]
+bg_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpv3a"]
+bg_color = Color(0.99999994, 0.20915332, 0.18978754, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.288518, 0.288518, 0.2885178, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_heqc5"]
 radius = 28.0
@@ -63,6 +75,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_v67md"]
 radius = 5.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fpv3a"]
+radius = 6.0
+height = 16.0
+
 [node name="Player" type="CharacterBody2D" unique_id=629358559 groups=["player"]]
 collision_layer = 0
 script = ExtResource("1_41w3l")
@@ -71,11 +87,30 @@ script = ExtResource("1_41w3l")
 
 [node name="AttackController" parent="AbilityManager" unique_id=20459518 instance=ExtResource("2_co0lx")]
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1454674782]
+[node name="HealthComponent" parent="." unique_id=1005102060 instance=ExtResource("3_bjes5")]
+
+[node name="GracePeriod" type="Timer" parent="." unique_id=719088218]
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=732673766]
+custom_minimum_size = Vector2(24, 4)
+offset_left = -12.0
+offset_top = 2.0
+offset_right = 12.0
+offset_bottom = 6.0
+pivot_offset = Vector2(12, 2)
+theme_override_styles/background = SubResource("StyleBoxFlat_bjes5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fpv3a")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="PickUpArea" type="Area2D" parent="." unique_id=1454674782]
+visible = false
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1072979220]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea" unique_id=1072979220]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_heqc5")
 
@@ -89,5 +124,14 @@ autoplay = "idle"
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_v67md")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1568618917]
-position_smoothing_enabled = true
+[node name="PlayerHurtBox" type="Area2D" parent="." unique_id=1008930867]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtBox" unique_id=1297716962]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_fpv3a")
+
+[connection signal="timeout" from="GracePeriod" to="." method="_on_grace_period_timeout"]
+[connection signal="area_entered" from="PlayerHurtBox" to="." method="_on_player_hurt_box_area_entered"]
+[connection signal="area_exited" from="PlayerHurtBox" to="." method="_on_player_hurt_box_area_exited"]

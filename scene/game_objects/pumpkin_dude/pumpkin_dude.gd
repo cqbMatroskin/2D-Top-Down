@@ -3,6 +3,9 @@ extends CharacterBody2D
 const MAX_SPEED = 80
 @onready var health_component: HealthComponent = $HealthComponent
 
+func _ready() -> void:
+	health_component.died.connect(on_died)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var direction: Vector2 = get_direction_to_player()
@@ -14,4 +17,6 @@ func get_direction_to_player() -> Vector2:
 	if player == null:
 		return Vector2.ZERO
 	return (player.global_position - self.global_position).normalized()
-	
+
+func on_died() -> void:
+	queue_free()
