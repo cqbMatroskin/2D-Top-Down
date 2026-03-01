@@ -36,7 +36,6 @@ func check_if_damaged() -> void:
 		return
 	health_component.take_damage(1)
 	grace_period.start()
-	print(health_component.current_health)
 
 func on_died() -> void:
 	queue_free()
