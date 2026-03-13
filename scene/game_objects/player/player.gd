@@ -17,7 +17,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var direction: Vector2 = movement_vector().normalized()
-	var target_velocity = MAX_SPEED * direction
+	var target_velocity: Vector2 = MAX_SPEED * direction
 	velocity = velocity.lerp(target_velocity, ACCELERATION)
 
 	move_and_slide()

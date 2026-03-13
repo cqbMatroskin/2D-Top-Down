@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c6y5icbmysora" path="res://scene/abilities/attack_ability/attack_controller.tscn" id="2_co0lx"]
 [ext_resource type="PackedScene" uid="uid://dgdjpfevf6i1" path="res://scene/components/health_component.tscn" id="3_bjes5"]
 [ext_resource type="Texture2D" uid="uid://ducgim7vevaoa" path="res://scene/game_objects/player/Art/knight_m_idle_anim_f1.png" id="3_co0lx"]
+[ext_resource type="PackedScene" uid="uid://dg4kuj8ixfert" path="res://scene/abilities/axe_ability/axe_ability_controller.tscn" id="3_fpv3a"]
+[ext_resource type="PackedScene" uid="uid://csahl6p2mdmad" path="res://scene/abilities/axe_ability/axe_ability.tscn" id="4_1tyhs"]
 [ext_resource type="Texture2D" uid="uid://cb78c6a3dly21" path="res://scene/game_objects/player/Art/knight_m_idle_anim_f2.png" id="4_kidpo"]
 [ext_resource type="Texture2D" uid="uid://b2k4efjob3lnf" path="res://scene/game_objects/player/Art/knight_m_idle_anim_f3.png" id="5_rvfjl"]
 [ext_resource type="Texture2D" uid="uid://c0cgoobuohlxw" path="res://scene/game_objects/player/Art/knight_m_run_anim_f0.png" id="6_i0aa2"]
@@ -86,6 +88,9 @@ script = ExtResource("1_41w3l")
 [node name="AbilityManager" type="Node" parent="." unique_id=475248097]
 
 [node name="AttackController" parent="AbilityManager" unique_id=20459518 instance=ExtResource("2_co0lx")]
+
+[node name="AxeAbilityController" parent="AbilityManager" unique_id=1864583375 instance=ExtResource("3_fpv3a")]
+axe_ability_scene = ExtResource("4_1tyhs")
 
 [node name="HealthComponent" parent="." unique_id=1005102060 instance=ExtResource("3_bjes5")]
 
