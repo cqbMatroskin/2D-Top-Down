@@ -4,6 +4,7 @@ class_name Player
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var grace_period: Timer = $GracePeriod
 @onready var progress_bar: ProgressBar = $ProgressBar
+@onready var ability_manager: Node = $AbilityManager
 
 const MAX_SPEED: int = 125
 const ACCELERATION: float = 0.1
@@ -12,7 +13,9 @@ var enemies_colliding: int = 0
 func _ready() -> void:
 	health_component.died.connect(on_died)
 	health_component.health_changed.connect(on_health_changed)
+	Global.ability_upgrade_added.connect(on_ability_upgrade_added)
 	health_update()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -21,6 +24,7 @@ func _process(delta: float) -> void:
 	velocity = velocity.lerp(target_velocity, ACCELERATION)
 
 	move_and_slide()
+
 
 func movement_vector() -> Vector2:
 	var movement_x: float = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -37,15 +41,19 @@ func check_if_damaged() -> void:
 	health_component.take_damage(1)
 	grace_period.start()
 
+
 func on_died() -> void:
 	queue_free()
+
 
 func on_health_changed() -> void:
 	health_update()
 
+
 func _on_player_hurt_box_area_entered(area: Area2D) -> void:
 	enemies_colliding += 1
 	check_if_damaged()
+
 
 func _on_player_hurt_box_area_exited(area: Area2D) -> void:
 	enemies_colliding -= 1
@@ -53,3 +61,10 @@ func _on_player_hurt_box_area_exited(area: Area2D) -> void:
 
 func _on_grace_period_timeout() -> void:
 	check_if_damaged()
+
+
+func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
+	if not upgrade is NewAbility:
+		return
+	var new_ability = upgrade as NewAbility
+	ability_manager.add_child(new_ability.new_ability_scene.instantiate())

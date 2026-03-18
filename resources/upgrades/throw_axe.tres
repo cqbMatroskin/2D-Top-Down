@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="NewAbility" format=3 uid="uid://df1jtwktdtifg"]
+
+[ext_resource type="PackedScene" uid="uid://dg4kuj8ixfert" path="res://scene/abilities/axe_ability/axe_ability_controller.tscn" id="1_wwgqf"]
+[ext_resource type="Script" uid="uid://f6aegxcmxqr1" path="res://resources/upgrades/new_ability.gd" id="2_ilx6a"]
+
+[resource]
+script = ExtResource("2_ilx6a")
+new_ability_scene = ExtResource("1_wwgqf")
+id = "throw_axe"
+name = "Вращающийся топор"
+description = "Пассивная абилка. Топор спанвится и вращается какое-то время вокруг игрока"

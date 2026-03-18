@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://dg4kuj8ixfert"]
 
 [ext_resource type="Script" uid="uid://cr0ic0yst32i2" path="res://scene/abilities/axe_ability/axe_ability_controller.gd" id="1_6j2oo"]
+[ext_resource type="PackedScene" uid="uid://csahl6p2mdmad" path="res://scene/abilities/axe_ability/axe_ability.tscn" id="2_ll0k2"]
 
 [node name="AxeAbilityController" type="Node" unique_id=1864583375]
 script = ExtResource("1_6j2oo")
+axe_ability_scene = ExtResource("2_ll0k2")
 
 [node name="Timer" type="Timer" parent="." unique_id=577465462]
 wait_time = 3.0
