@@ -5,6 +5,7 @@ class_name Player
 @onready var grace_period: Timer = $GracePeriod
 @onready var progress_bar: ProgressBar = $ProgressBar
 @onready var ability_manager: Node = $AbilityManager
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 const MAX_SPEED: int = 125
 const ACCELERATION: float = 0.1
@@ -24,6 +25,15 @@ func _process(delta: float) -> void:
 	velocity = velocity.lerp(target_velocity, ACCELERATION)
 
 	move_and_slide()
+	
+	if direction.x !=  0 || direction.y != 0:
+		animated_sprite_2d.play("run")
+	else:
+		animated_sprite_2d.play("idle")
+		
+	var face_sign = sign(direction.x)
+	if face_sign != 0:
+		animated_sprite_2d.scale.x = face_sign
 
 
 func movement_vector() -> Vector2:
