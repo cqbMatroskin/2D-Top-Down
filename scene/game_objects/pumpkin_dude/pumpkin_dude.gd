@@ -4,6 +4,9 @@ const MAX_SPEED = 80
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+@export var death_scene: PackedScene
+@export var death_sprite: CompressedTexture2D
+
 func _ready() -> void:
 	health_component.died.connect(on_died)
 
@@ -29,4 +32,9 @@ func get_direction_to_player() -> Vector2:
 	return (player.global_position - self.global_position).normalized()
 
 func on_died() -> void:
+	var back_layer: Node = get_tree().get_first_node_in_group("back_layer")
+	var death_instance = death_scene.instantiate() as DeathComp
+	back_layer.add_child(death_instance)
+	death_instance.gpu_particles_2d.texture = death_sprite
+	death_instance.global_position = global_position
 	queue_free()
