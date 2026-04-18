@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://ncxajfiqtlox"]
+
+[ext_resource type="Script" uid="uid://cj8wsthyo53bt" path="res://scene/game_objects/pumpkin_dude/pumpkin_dude.gd" id="1_jr04c"]
+[ext_resource type="PackedScene" uid="uid://dsf5r8p2jwca4" path="res://scene/components/death_component.tscn" id="2_df7ma"]
+[ext_resource type="Texture2D" uid="uid://6dicnv6uqptd" path="res://scene/game_objects/goblin/art/goblin_idle_anim_f0.png" id="3_jr04c"]
+[ext_resource type="PackedScene" uid="uid://dgdjpfevf6i1" path="res://scene/components/health_component.tscn" id="4_se60v"]
+[ext_resource type="PackedScene" uid="uid://bldwq2kh4je15" path="res://scene/components/exp_bottle_drop_component.tscn" id="5_6onfi"]
+[ext_resource type="PackedScene" uid="uid://b6gtnnm6de5or" path="res://scene/components/hurt_box_component.tscn" id="6_6bvge"]
+[ext_resource type="PackedScene" uid="uid://bbkkvlbvhic8m" path="res://scene/components/movement_component.tscn" id="6_df7ma"]
+[ext_resource type="Texture2D" uid="uid://cbuw42v7itn76" path="res://scene/game_objects/goblin/art/goblin_idle_anim_f1.png" id="7_df7ma"]
+[ext_resource type="Texture2D" uid="uid://btv1xf25m2wlv" path="res://scene/game_objects/goblin/art/goblin_idle_anim_f2.png" id="8_ra7gy"]
+[ext_resource type="Texture2D" uid="uid://dadtay86ruf8l" path="res://scene/game_objects/goblin/art/goblin_idle_anim_f3.png" id="9_se60v"]
+[ext_resource type="Texture2D" uid="uid://b3mcxu0qyly5g" path="res://scene/game_objects/goblin/art/goblin_run_anim_f0.png" id="10_6onfi"]
+[ext_resource type="Texture2D" uid="uid://ckw0jiryaloh5" path="res://scene/game_objects/goblin/art/goblin_run_anim_f1.png" id="11_6bvge"]
+[ext_resource type="Texture2D" uid="uid://wba2qs6u0ky3" path="res://scene/game_objects/goblin/art/goblin_run_anim_f2.png" id="12_wvx37"]
+[ext_resource type="Texture2D" uid="uid://qcd50qofwfyu" path="res://scene/game_objects/goblin/art/goblin_run_anim_f3.png" id="13_cu0c4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5bs6e"]
+radius = 13.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfntg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jr04c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_df7ma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ra7gy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_se60v")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_6onfi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_6bvge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wvx37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_cu0c4")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ta4dj"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jr04c"]
+radius = 6.0
+
+[node name="Goblin" type="CharacterBody2D" unique_id=2139793373 groups=["enemy"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_jr04c")
+death_scene = ExtResource("2_df7ma")
+death_sprite = ExtResource("3_jr04c")
+
+[node name="HealthComponent" parent="." unique_id=1005102060 instance=ExtResource("4_se60v")]
+max_health = 5
+
+[node name="ExpBottleDropComponent" parent="." unique_id=665201410 node_paths=PackedStringArray("health_component") instance=ExtResource("5_6onfi")]
+health_component = NodePath("../HealthComponent")
+
+[node name="MovementComponent" parent="." unique_id=135614152 instance=ExtResource("6_df7ma")]
+
+[node name="HurtBoxComponent" parent="." unique_id=202865895 node_paths=PackedStringArray("health_component") instance=ExtResource("6_6bvge")]
+position = Vector2(0, -1)
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent" unique_id=1823393692]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_5bs6e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=468608925]
+sprite_frames = SubResource("SpriteFrames_pfntg")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=604906771]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_ta4dj")
+
+[node name="EnemyHitBox" type="Area2D" parent="." unique_id=71506589]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox" unique_id=1534137211]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_jr04c")

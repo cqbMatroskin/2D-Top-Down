@@ -7,7 +7,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/GPUParticles2D:emitting")
+tracks/0/path = NodePath("SpriteOffset/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -23,7 +23,7 @@ length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/GPUParticles2D:emitting")
+tracks/0/path = NodePath("SpriteOffset/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -78,10 +78,9 @@ script = ExtResource("1_m7agx")
 libraries/ = SubResource("AnimationLibrary_axulq")
 autoplay = &"death"
 
-[node name="Node2D" type="Node2D" parent="." unique_id=713549584]
-position = Vector2(0, -12)
+[node name="SpriteOffset" type="Node2D" parent="." unique_id=713549584]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Node2D" unique_id=499681967]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="SpriteOffset" unique_id=499681967]
 unique_name_in_owner = true
 emitting = false
 amount = 1

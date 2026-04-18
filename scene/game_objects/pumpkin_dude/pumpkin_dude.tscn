@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://lxt4p8rpkbsp" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_idle_anim_f3.png" id="4_ff4i2"]
 [ext_resource type="PackedScene" uid="uid://b6gtnnm6de5or" path="res://scene/components/hurt_box_component.tscn" id="4_jmnkd"]
 [ext_resource type="Texture2D" uid="uid://c4kvka8resvn5" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f0.png" id="5_wefsl"]
+[ext_resource type="PackedScene" uid="uid://bbkkvlbvhic8m" path="res://scene/components/movement_component.tscn" id="6_8mgqj"]
 [ext_resource type="Texture2D" uid="uid://r3bejeqh27x7" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f1.png" id="6_ivd43"]
 [ext_resource type="Texture2D" uid="uid://cds7u75synple" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f2.png" id="7_kqigh"]
 [ext_resource type="Texture2D" uid="uid://c2cjr0phvvpiy" path="res://scene/game_objects/pumpkin_dude/Art/pumpkin_dude_run_anim_f3.png" id="8_ua6y8"]
@@ -74,6 +75,8 @@ max_health = 5
 [node name="ExpBottleDropComponent" parent="." unique_id=665201410 node_paths=PackedStringArray("health_component") instance=ExtResource("3_tfhlc")]
 health_component = NodePath("../HealthComponent")
 
+[node name="MovementComponent" parent="." unique_id=135614152 instance=ExtResource("6_8mgqj")]
+
 [node name="HurtBoxComponent" parent="." unique_id=202865895 node_paths=PackedStringArray("health_component") instance=ExtResource("4_jmnkd")]
 health_component = NodePath("../HealthComponent")
 
@@ -88,6 +91,7 @@ animation = &"run"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=604906771]
+visible = false
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_3v3ac")
 
